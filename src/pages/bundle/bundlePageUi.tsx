@@ -26,15 +26,15 @@ export const BundlePageUi: FC<BundlePageUiProps> = ({ isLoading, headerImage, he
     return (
         <>
             {/*Todo: extract into component*/}
-            {/*<header className="flex items-center relative">*/}
-            {/*    <div className="2xl:container">*/}
-            {/*        {headerImage && <LazyImage ratio={5} src={headerImage} alt={headerTitle} />}*/}
-            {/*        <h1 className="bg-white text-2xl font-extrabold">{headerTitle}</h1>*/}
-            {/*    </div>*/}
+            {/*<header className="flex items-center relative p-12 pb-0 2xl:container">*/}
+            {/*    /!*<div className="2xl:container">*!/*/}
+            {/*    {headerImage && <LazyImage ratio={5} src={headerImage} alt={headerTitle} />}*/}
+            {/*    /!*<h1 className="bg-white text-2xl font-extrabold">{headerTitle}</h1>*!/*/}
+            {/*    /!*</div>*!/*/}
             {/*</header>*/}
 
             {/*<div className="2xl:container space-y-12">*/}
-            <div className="p-4 md:p-12">
+            <div className="p-4 md:p-12 2xl:container">
                 {isLoading && <span>Loading..</span>}
                 {bundleItems && <ItemGrid items={bundleItems} isLoading={isLoading} onItemClicked={() => {}} />}
             </div>

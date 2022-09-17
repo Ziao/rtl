@@ -2,7 +2,8 @@
  * Component that lazily loads an image once it's in the viewport
  */
 import classNames from "classnames";
-import { createRef, FC, ImgHTMLAttributes, SyntheticEvent, useState } from "react";
+import { createRef, FC, ImgHTMLAttributes, SyntheticEvent, useEffect, useState } from "react";
+import { useInView } from "../../hooks/misc/useInView";
 
 interface LazyImageProps {
     /**
@@ -50,14 +51,16 @@ export const LazyImage: FC<LazyImageProps> = ({
     artificialDelayMs,
 }) => {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [inView, setInView] = useState(false);
     const [useRatio, setUseRatio] = useState(ratio ?? 1);
     const imgRef = createRef<HTMLImageElement>();
+    const containerRef = createRef<HTMLDivElement>();
+    const inView = useInView(containerRef, 0, true);
+    const [start, setStart] = useState(+new Date());
 
-    const start = +new Date();
     const onImageLoaded = async (e: SyntheticEvent<HTMLImageElement, Event>) => {
-        if (artificialDelayMs)
+        if (artificialDelayMs) {
             await new Promise((r) => setTimeout(r, Math.max(0, artificialDelayMs - (+new Date() - start))));
+        }
 
         setIsLoaded(true);
 
@@ -68,37 +71,37 @@ export const LazyImage: FC<LazyImageProps> = ({
         extraAttributes?.onLoad?.(e);
     };
 
-    // Intersect logic:
-    // const onScroll = () => {};
-    // addEventListener
-    // removeEventListener
-    // onScroll()
-
     return (
         <div
+            ref={containerRef}
             className={classNames("overflow-hidden w-full group", className, {
                 relative: !className?.includes("absolute"),
             })}
             style={{ aspectRatio: useRatio }}
         >
             <div
-                className={classNames("pointer-events-none transition-all duration-500", {
-                    "opacity-0": isLoaded,
+                className={classNames("transition-all duration-500", {
+                    "opacity-0": isLoaded && inView,
                 })}
             >
                 <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
             </div>
 
-            <img
-                ref={imgRef}
-                src={src}
-                alt={alt}
-                className={classNames("w-full h-full transition-all duration-500 object-cover group-hover:scale-105", {
-                    "opacity-0 scale-105": !isLoaded,
-                })}
-                onLoad={(e) => onImageLoaded(e)}
-                {...extraAttributes}
-            />
+            {inView && (
+                <img
+                    ref={imgRef}
+                    src={src}
+                    alt={alt}
+                    className={classNames(
+                        "w-full h-full transition-all duration-500 object-cover xgroup-hover:scale-105",
+                        {
+                            "opacity-0 scale-105": !isLoaded || !inView,
+                        }
+                    )}
+                    onLoad={(e) => onImageLoaded(e)}
+                    {...extraAttributes}
+                />
+            )}
         </div>
     );
 };
