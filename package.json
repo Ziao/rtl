@@ -7,7 +7,7 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "format": "prettier --write 'index.html' '{src,cypress}/**/*.{ts,tsx,js,jsx,json,md,css,scss,less,sass}'"
+        "format": "prettier --write 'index.html' '{src,cypress}/**/*.{ts,tsx,js,jsx,json,md,css,scss,less,sass,cjs}'"
     },
     "prettier": {
         "printWidth": 120,
