@@ -11,5 +11,12 @@ import { BundlePageUi } from "./bundlePageUi";
  */
 export const BundlePage: FC = () => {
     const { data, isLoading } = useBundleItemsQuery();
-    return <BundlePageUi bundleItems={data?.bundelItems} isLoading={isLoading} />;
+    return (
+        <BundlePageUi
+            bundleItems={data?.bundelItems}
+            isLoading={isLoading}
+            headerImage={data?.image.imageUrl}
+            headerTitle={data?.title}
+        />
+    );
 };

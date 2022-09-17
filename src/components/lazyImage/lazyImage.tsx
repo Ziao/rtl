@@ -28,6 +28,11 @@ interface LazyImageProps {
 
     // Any additional <img> attributes
     extraAttributes?: ImgHTMLAttributes<HTMLImageElement>;
+
+    // Add an extra delay to the loading of the image
+    artificialDelayMs?: number;
+
+    zoomOnHover?: boolean;
 }
 
 /**
@@ -35,14 +40,25 @@ interface LazyImageProps {
  * Good example of a component where extracting logic and UI is overkill.
  * @todo: implement the intersection logic
  */
-export const LazyImage: FC<LazyImageProps> = ({ src, alt, className, ratio, extraAttributes }) => {
+export const LazyImage: FC<LazyImageProps> = ({
+    src,
+    alt,
+    className,
+    ratio,
+    extraAttributes,
+    zoomOnHover,
+    artificialDelayMs,
+}) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [inView, setInView] = useState(false);
     const [useRatio, setUseRatio] = useState(ratio ?? 1);
     const imgRef = createRef<HTMLImageElement>();
 
+    const start = +new Date();
     const onImageLoaded = async (e: SyntheticEvent<HTMLImageElement, Event>) => {
-        await new Promise((r) => setTimeout(r, Math.random() * 1000));
+        if (artificialDelayMs)
+            await new Promise((r) => setTimeout(r, Math.max(0, artificialDelayMs - (+new Date() - start))));
+
         setIsLoaded(true);
 
         // If no ratio was passed, now is the time to calculate the real ratio, and use that
@@ -59,19 +75,25 @@ export const LazyImage: FC<LazyImageProps> = ({ src, alt, className, ratio, extr
     // onScroll()
 
     return (
-        <div className={classNames("overflow-hidden w-full relative")} style={{ aspectRatio: useRatio }}>
+        <div
+            className={classNames("overflow-hidden w-full group", className, {
+                relative: !className?.includes("absolute"),
+            })}
+            style={{ aspectRatio: useRatio }}
+        >
             <div
                 className={classNames("pointer-events-none transition-all duration-500", {
                     "opacity-0": isLoaded,
                 })}
             >
-                <div className="absolute inset-0 bg-gray-300 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
             </div>
+
             <img
                 ref={imgRef}
                 src={src}
                 alt={alt}
-                className={classNames("absolute inset-0 transition-all duration-500", {
+                className={classNames("w-full h-full transition-all duration-500 object-cover group-hover:scale-105", {
                     "opacity-0 scale-105": !isLoaded,
                 })}
                 onLoad={(e) => onImageLoaded(e)}

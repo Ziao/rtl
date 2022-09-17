@@ -13,14 +13,13 @@ export const ItemGrid: FC<ItemGridProps> = ({ items, isLoading, onItemClicked })
     // wanted to do something different from the Boulevard site. Figured it may be a nice little use case for some logic
 
     return (
-        // <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         <div
-            className="grid gap-10 xgrid-flow-col"
+            className="grid gap-x-4 gap-y-8 xgrid-flow-col"
             style={{ gridTemplateColumns: "repeat( auto-fit, minmax(250px, 1fr))" }}
         >
             {/*<div className="grid gap-4 grid-flow-col grid-rows-5 auto-cols-auto" style={{ width: "1000px" }}>*/}
-            {items?.map((item) => (
-                <ItemGridItem key={item.id} item={item} onClick={() => onItemClicked(item)} />
+            {items?.map((item, i) => (
+                <ItemGridItem key={item.id} item={item} onClick={() => onItemClicked(item)} index={i} />
             ))}
         </div>
     );
@@ -28,16 +27,17 @@ export const ItemGrid: FC<ItemGridProps> = ({ items, isLoading, onItemClicked })
 
 interface ItemGridItemProps {
     item: BundelItem;
+    index: number;
     onClick: () => void;
 }
-export const ItemGridItem: FC<ItemGridItemProps> = ({ item, onItemClicked }) => {
+export const ItemGridItem: FC<ItemGridItemProps> = ({ item, index, onItemClicked }) => {
     const image = item.afbeelding.crops.find((crop) => crop.type === CropType.SquareSmall);
 
     return (
-        <article className="flex flex-col space-y-8">
+        <article className="flex flex-col space-y-4">
             {/* Todo: use hook to find preferred one */}
             <a href={item.urlAlias} target="_blank" rel="nofollow" className="link-primary">
-                {image && <LazyImage alt={item.titel} src={image.path} />}
+                {image && <LazyImage alt={item.titel} src={image.path} artificialDelayMs={index * 50} />}
                 {/*{image && <LazyImage alt={item.titel} src={item.afbeelding.afbeelding} />}*/}
             </a>
             <div>
