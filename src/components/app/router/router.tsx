@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
-import { ArticlesPage } from "../../../pages/articles/articlesPage";
+import { BundlePage } from "../../../pages/bundle/bundlePage";
 
 /**
  * Router is not explicitly needed for this assignment, but if we were to expand on this, it's nice to have it available.
@@ -7,6 +7,6 @@ import { ArticlesPage } from "../../../pages/articles/articlesPage";
 export const Router = createBrowserRouter([
   {
     path: "/",
-    element: <ArticlesPage />,
+    element: <BundlePage />,
   },
 ]);

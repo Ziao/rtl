@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { ArticlesPageUi } from "./articlesPageUi";
+import { useBundleItemsQuery } from "../../hooks/queries/bundleItems";
+import { BundlePageUi } from "./bundlePageUi";
 
 /**
  * I like to separate complex components into two parts
@@ -8,6 +9,7 @@ import { ArticlesPageUi } from "./articlesPageUi";
  * This way, things stay easily testable and it helps in keeping components small and concise.
  * For smaller components, such as buttons, this is often overkill. It may even be overkill in this situation, but hey - you asked :)
  */
-export const ArticlesPage: FC = () => {
-  return <ArticlesPageUi />;
+export const BundlePage: FC = () => {
+  const { data, isLoading } = useBundleItemsQuery();
+  return <BundlePageUi bundleItems={data?.bundelItems} isLoading={isLoading} />;
 };
