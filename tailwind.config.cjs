@@ -5,7 +5,13 @@ module.exports = {
         container: {
             center: true,
         },
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ["Roboto", "sans-serif"],
+                display: ["Roboto Condensed", "sans-serif"],
+            },
+        },
     },
-    plugins: [require("daisyui")],
+    daisy: {},
+    plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
 };
