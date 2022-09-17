@@ -7,5 +7,5 @@ import { queryClient } from "../../lib/app/queryClient";
  * keep things readable
  */
 export const Providers: FC<PropsWithChildren> = ({ children }) => {
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };

@@ -1,3 +1,3 @@
 export enum QueryKeys {
-  bundleItems = "bundleItems",
+    bundleItems = "bundleItems",
 }

@@ -10,6 +10,6 @@ import { BundlePageUi } from "./bundlePageUi";
  * For smaller components, such as buttons, this is often overkill. It may even be overkill in this situation, but hey - you asked :)
  */
 export const BundlePage: FC = () => {
-  const { data, isLoading } = useBundleItemsQuery();
-  return <BundlePageUi bundleItems={data?.bundelItems} isLoading={isLoading} />;
+    const { data, isLoading } = useBundleItemsQuery();
+    return <BundlePageUi bundleItems={data?.bundelItems} isLoading={isLoading} />;
 };
