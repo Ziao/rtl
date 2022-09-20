@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { createRef, FC, ImgHTMLAttributes, SyntheticEvent, useEffect, useState } from "react";
+import { createRef, FC, ImgHTMLAttributes, SyntheticEvent, useState } from "react";
 import { useInView } from "../../hooks/misc/useInView";
 
 interface LazyImageProps {
@@ -59,7 +59,7 @@ export const LazyImage: FC<LazyImageProps> = ({
     const imgRef = createRef<HTMLImageElement>();
     const containerRef = createRef<HTMLDivElement>();
     const inView = useInView(containerRef, 0, true);
-    const [start, setStart] = useState(+new Date());
+    const [start] = useState(+new Date());
 
     // Once the image loads ..
     const onImageLoaded = async (e: SyntheticEvent<HTMLImageElement, Event>) => {

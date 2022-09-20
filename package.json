@@ -7,11 +7,24 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "format": "prettier --write 'index.html' '{src,cypress}/**/*.{ts,tsx,js,jsx,json,md,css,scss,less,sass,cjs}'"
+        "format": "prettier --write 'index.html' '{src,cypress}/**/*.{ts,tsx,js,jsx,json,md,css,scss,less,sass,cjs}'",
+        "format:check": "prettier --check 'index.html' '{src,cypress}/**/*.{ts,tsx,js,jsx,json,md,css,scss,less,sass,cjs}'",
+        "lint": "tsc --noemit && yarn eslint 'src/**/*.{ts,tsx}' && yarn format:check",
+        "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'"
     },
     "prettier": {
         "printWidth": 120,
         "tabWidth": 4
+    },
+    "eslintConfig": {
+        "extends": [
+            "eslint:recommended",
+            "react-app"
+        ],
+        "rules": {
+            "@typescript-eslint/no-unused-vars": "error",
+            "react-hooks/exhaustive-deps": "error"
+        }
     },
     "dependencies": {
         "@tailwindcss/line-clamp": "^0.4.2",
@@ -28,6 +41,8 @@
         "@vitejs/plugin-react": "^2.1.0",
         "autoprefixer": "^10.4.11",
         "daisyui": "^2.28.0",
+        "eslint": "^8.23.1",
+        "eslint-config-react-app": "^7.0.1",
         "postcss": "^8.4.16",
         "prettier": "^2.7.1",
         "sass": "^1.54.9",

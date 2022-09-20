@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from "react";
+import { RefObject, useEffect, useMemo, useState } from "react";
 
 /**
  * Returns a boolean, indicating whether an element is in the viewport.
@@ -9,27 +9,30 @@ import { RefObject, useEffect, useState } from "react";
 export const useInView = (ref: RefObject<HTMLElement>, threshold: number = 0, sticky: boolean = false) => {
     const [inView, setInView] = useState(false);
 
-    const observer = new IntersectionObserver(
-        ([entry]) => {
-            if (sticky && inView) return;
-            setInView(entry.isIntersecting);
-        },
-        {
-            root: null,
-            rootMargin: "0px",
-            threshold,
-        }
+    // useMemo is used here to prevent the observer from being recreated on every render
+    const observer = useMemo(
+        () =>
+            new IntersectionObserver(
+                ([entry]) => {
+                    if (sticky && inView) return;
+                    setInView(entry.isIntersecting);
+                },
+                {
+                    root: null,
+                    rootMargin: "0px",
+                    threshold,
+                }
+            ),
+        [inView, sticky, threshold]
     );
 
     useEffect(() => {
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
+        // Once we have the ref (or it changes), start observing it
+        if (ref.current) observer.observe(ref.current);
 
-        return () => {
-            observer.disconnect();
-        };
-    }, [ref]);
+        // On unmount, stop observing
+        return () => observer.disconnect();
+    }, [ref, observer]);
 
     return inView;
 };

@@ -16,7 +16,7 @@ export const BundlePage: FC = () => {
 
     const onItemClicked = (item: BundelItem) => {
         // Maybe do some tracking here, open a modal, etc
-        location.href = item.urlAlias;
+        window.location.href = item.urlAlias;
     };
 
     // Should come from an API as well, of course
