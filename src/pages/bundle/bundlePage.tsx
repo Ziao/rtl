@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useBundleItemsQuery } from "../../hooks/queries/bundleItems";
 import { BundelItem } from "../../types/api/bundleResponse";
-import { BundlePageUi } from "./bundlePageUi";
+import { BundlePageUi, BundlePageUiProps } from "./bundlePageUi";
 
 /**
  * I like to separate complex components into two parts
@@ -19,5 +19,11 @@ export const BundlePage: FC = () => {
         location.href = item.urlAlias;
     };
 
-    return <BundlePageUi items={data} isLoading={isLoading} onItemClicked={onItemClicked} />;
+    // Should come from an API as well, of course
+    const pageMeta: BundlePageUiProps["meta"] = {
+        title: "De uitschieters van 2018",
+        // image:
+    };
+
+    return <BundlePageUi items={data} isLoading={isLoading} onItemClicked={onItemClicked} meta={pageMeta} />;
 };

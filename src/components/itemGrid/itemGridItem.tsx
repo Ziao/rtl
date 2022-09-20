@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { usePreferredItemImage } from "../../lib/util/media/preferredItemImage";
 import { selectPreferredItemImage } from "../../lib/util/media/selectPreferredItemImage";
 import { BundelItem, CropType } from "../../types/api/bundleResponse";
 import { LazyImage } from "../lazyImage/lazyImage";
