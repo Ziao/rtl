@@ -6,7 +6,7 @@
 
 export interface BundleResponse {
     bundelItems: BundelItem[];
-    title: LabelValueEnum;
+    title: string;
     label: string;
     description: string;
     image: Image;
@@ -22,7 +22,7 @@ export interface BundelItem {
     branded: Branded;
     sectie: Sectie;
     overigeSecties: Sectie[];
-    labelValue: LabelValueEnum;
+    labelValue: string;
     labelType: LabelType;
     metadata: Metadata;
     chapeau: string;
@@ -79,10 +79,6 @@ export interface Branded {
 
 export enum LabelType {
     BundleLabel = "bundleLabel",
-}
-
-export enum LabelValueEnum {
-    DeUitschietersVan2018 = "De uitschieters van 2018",
 }
 
 export interface Metadata {
