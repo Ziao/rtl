@@ -1,6 +1,3 @@
-/**
- * Component that lazily loads an image once it's in the viewport
- */
 import classNames from "classnames";
 import { createRef, FC, ImgHTMLAttributes, SyntheticEvent, useEffect, useState } from "react";
 import { useInView } from "../../hooks/misc/useInView";
@@ -27,19 +24,26 @@ interface LazyImageProps {
      */
     ratio?: number;
 
-    // Any additional <img> attributes
+    /**
+     * Any additional <img> attributes
+     */
     extraAttributes?: ImgHTMLAttributes<HTMLImageElement>;
 
-    // Add an extra delay to the loading of the image
+    /**
+     * Add an extra delay to the loading of the image, useful for stagger effects
+     */
     artificialDelayMs?: number;
 
+    /**
+     * Should we zoom in a touch when the user hovers over the image?
+     */
     zoomOnHover?: boolean;
 }
 
 /**
- * Component that lazily loads an image once it's in the viewport, and then fades it in.
- * Good example of a component where extracting logic and UI is overkill.
- * @todo: implement the intersection logic
+ * Component that lazily loads an image once it's intersects the viewport, and then fades it in.
+ * Maybe a bit excessive for this assignment, but it's a good example of a component where extracting logic and UI is
+ * overkill.
  */
 export const LazyImage: FC<LazyImageProps> = ({
     src,
@@ -57,15 +61,19 @@ export const LazyImage: FC<LazyImageProps> = ({
     const inView = useInView(containerRef, 0, true);
     const [start, setStart] = useState(+new Date());
 
+    // Once the image loads ..
     const onImageLoaded = async (e: SyntheticEvent<HTMLImageElement, Event>) => {
         if (artificialDelayMs) {
+            // If we have an artificial delay, we need to wait for that before we can mark the image as loaded.
+            // Keep the start time in mind as well.
             await new Promise((r) => setTimeout(r, Math.max(0, artificialDelayMs - (+new Date() - start))));
         }
 
-        setIsLoaded(true);
-
         // If no ratio was passed, now is the time to calculate the real ratio, and use that
         if (ratio === undefined) setUseRatio(imgRef.current!.naturalWidth / imgRef.current!.naturalHeight);
+
+        // Make things happen!
+        setIsLoaded(true);
 
         // if an onLoad was passed as an attribute, call it
         extraAttributes?.onLoad?.(e);
@@ -92,12 +100,10 @@ export const LazyImage: FC<LazyImageProps> = ({
                     ref={imgRef}
                     src={src}
                     alt={alt}
-                    className={classNames(
-                        "w-full h-full transition-all duration-500 object-cover xgroup-hover:scale-105",
-                        {
-                            "opacity-0 scale-105": !isLoaded || !inView,
-                        }
-                    )}
+                    className={classNames("w-full h-full transition-all duration-500 object-cover", {
+                        "opacity-0 scale-105": !isLoaded || !inView,
+                        "group-hover:scale-105": zoomOnHover,
+                    })}
                     onLoad={(e) => onImageLoaded(e)}
                     {...extraAttributes}
                 />
