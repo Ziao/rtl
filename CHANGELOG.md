@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/Ziao/rtl/compare/v1.0.0...v1.0.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* properly handle item clicks ([ea38aa8](https://github.com/Ziao/rtl/commit/ea38aa8c5c2fb074de9b0fe3859e040a38a03981))
+
 ## 1.0.0 (2022-09-21)
 
 
