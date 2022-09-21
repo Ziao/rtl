@@ -29,10 +29,10 @@ export const BundlePageUi: FC<BundlePageUiProps> = ({ isLoading, items, meta, on
 
             {/*<Jumbotron />*/}
 
-            <div className="Page_content">
+            <main className="Page_content">
                 {isLoading && <span>Loading..</span>}
                 {items && <ItemGrid items={items} isLoading={isLoading} onItemClicked={onItemClicked} />}
-            </div>
+            </main>
 
             {/*Footer*/}
         </div>

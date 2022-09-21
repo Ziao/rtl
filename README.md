@@ -25,6 +25,7 @@ I normally use branches for features, I'd say I'm really comfortable with git in
 - [ ] Set up Cypress
 - [ ] Set up Storybook
 - [ ] Write integration tests
+- [ ] More SEO tags, such as meta descriptions, favicons, etc
 
 ### Things I would add, but did not have time for
 - Handle UI cases such as articles with `showVideoIcon` or `isPremium`.
@@ -33,5 +34,5 @@ I normally use branches for features, I'd say I'm really comfortable with git in
 - Write more tests, especially for the `LazyImage` and `ItemGridItem` components. 
 - Set up cycpress and write a bunch of E2E/integration tests.
 - CI/CD pipeline, with a proper build step, and a deployment step to a static hosting service.
-
+- Proper skeleton loaders instead of a `Loading...` span
 

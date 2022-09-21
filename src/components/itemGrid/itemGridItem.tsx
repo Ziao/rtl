@@ -18,12 +18,12 @@ export const ItemGridItem: FC<ItemGridItemProps> = ({ item, index, onClick }) =>
             {image && <LazyImage alt={item.titel} src={image.path} artificialDelayMs={index * 50} ratio={1.5} />}
 
             <div className="ItemGrid_item_meta">
-                <div>
+                <header>
                     <span className="ItemGrid_item_category">{item.labelValue}</span>
                     <h3 className="ItemGrid_item_title" data-testid="ItemGridItemTitle">
                         {item.titel}
                     </h3>
-                </div>
+                </header>
                 <p className="ItemGrid_item_excerpt">{item.lead}</p>
             </div>
         </article>
