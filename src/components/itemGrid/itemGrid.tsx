@@ -15,7 +15,6 @@ export const ItemGrid: FC<ItemGridProps> = ({ items, isLoading, onItemClicked })
 
     return (
         <div data-testid="ItemGrid" className="ItemGrid">
-            {/*<div className="grid gap-4 grid-flow-col grid-rows-5 auto-cols-auto" style={{ width: "1000px" }}>*/}
             {items?.map((item, i) => (
                 <ItemGridItem key={item.id} item={item} onClick={() => onItemClicked(item)} index={i} />
             ))}

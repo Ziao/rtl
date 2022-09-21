@@ -14,7 +14,7 @@ export const ItemGridItem: FC<ItemGridItemProps> = ({ item, index, onClick }) =>
 
     // Of course, we'd normally wrap this in an <a>, but for the assignment's sake, we do it using an onClick
     return (
-        <article data-testid="ItemGridItem" className="ItemGrid_item">
+        <article data-testid="ItemGridItem" className="ItemGrid_item" onClick={onClick}>
             {image && <LazyImage alt={item.titel} src={image.path} artificialDelayMs={index * 50} ratio={1.5} />}
 
             <div className="ItemGrid_item_meta">
