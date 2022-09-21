@@ -18,7 +18,7 @@ export const useBundleItemsQuery = (pageId: string, maxCount: number) => {
         // const { data } = await apiClient.get<BundleResponse>("/items", {
         //     params: {
         //         pageId,
-        //         count,
+        //         maxCount,
         //     },
         // });
 
@@ -26,13 +26,10 @@ export const useBundleItemsQuery = (pageId: string, maxCount: number) => {
 
         const items = data.bundelItems;
 
-        // Double the results so we have a little more to work with. Double the id's for these to avoid collisions.
-        const doubledItems = items.concat(items.map((item) => ({ ...item, id: item.id * 2 })));
-
         // Just for fun, let's sort by video's first, as it gives us something to play with during tests.
         // I prefer using consts and naming our variables for every step, so it's always clear what you are working
         // with, as opposed to using a `let` and modifying things in place or overwriting it.
-        const sortedItems = doubledItems.sort((item1, item2) => {
+        const sortedItems = items.sort((item1, item2) => {
             // Both are videos, or both are not; no need to sort
             if (item1.showVideoIcon === item2.showVideoIcon) return 0;
             // Item 1 is a video, so it should be first

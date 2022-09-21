@@ -22,4 +22,4 @@
 - Handle cases such as articles with `showVideoIcon` or `isPremium`.
 - Bother someone about the meaning of all the fields, hopefully this is documented somewhere. 
 - Come up with a better look for the page, as well has a proper jumbo component. Time did not allow for this.
-- 
+- Write more tests, especially for the `LazyImage` and `ItemGridItem` components. 

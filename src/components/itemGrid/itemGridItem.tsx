@@ -13,24 +13,25 @@ export const ItemGridItem: FC<ItemGridItemProps> = ({ item, index, onClick }) =>
     const image = selectPreferredItemImage(item, CropType.ArtikelTop);
 
     return (
-        <a href={item.urlAlias} target="_blank" rel="noreferrer">
-            <article className="flex flex-col transition-all hover:bg-gray-100 hover:-translate-y-1 transition-all duration-200 will-change-transform">
-                {/* Todo: use hook to find preferred one */}
-                <span className="link-primary">
-                    {image && (
-                        <LazyImage alt={item.titel} src={image.path} artificialDelayMs={index * 50} ratio={1.5} />
-                    )}
-                </span>
-                <div className="space-y-4 p-2">
-                    <div>
-                        <span className="text-gray-400">{item.labelValue}</span>
-                        <span className="link-primary">
-                            <h3 className="font-display text-xl">{item.titel}</h3>
-                        </span>
-                    </div>
-                    <p className="line-clamp-3">{item.lead}</p>
+        <article
+            data-testid="ItemGridItem"
+            className="flex flex-col transition-all hover:bg-gray-100 hover:-translate-y-1 transition-all duration-200 will-change-transform"
+        >
+            {/* Todo: use hook to find preferred one */}
+            <span className="link-primary">
+                {image && <LazyImage alt={item.titel} src={image.path} artificialDelayMs={index * 50} ratio={1.5} />}
+            </span>
+            <div className="space-y-4 p-2">
+                <div>
+                    <span className="text-gray-400">{item.labelValue}</span>
+                    <span className="link-primary">
+                        <h3 className="font-display text-xl" data-testid="ItemGridItemTitle">
+                            {item.titel}
+                        </h3>
+                    </span>
                 </div>
-            </article>
-        </a>
+                <p className="line-clamp-3">{item.lead}</p>
+            </div>
+        </article>
     );
 };
