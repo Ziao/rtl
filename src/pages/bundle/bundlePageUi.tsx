@@ -24,17 +24,17 @@ export interface BundlePageUiProps {
  */
 export const BundlePageUi: FC<BundlePageUiProps> = ({ isLoading, items, meta, onItemClicked }) => {
     return (
-        <>
+        <div className="Page">
             <Navbar title={meta.title} />
 
             {/*<Jumbotron />*/}
 
-            <div className="p-4 md:p-12 2xl:container">
+            <div className="Page_content">
                 {isLoading && <span>Loading..</span>}
                 {items && <ItemGrid items={items} isLoading={isLoading} onItemClicked={onItemClicked} />}
             </div>
 
             {/*Footer*/}
-        </>
+        </div>
     );
 };

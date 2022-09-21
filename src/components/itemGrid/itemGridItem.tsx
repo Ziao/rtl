@@ -12,25 +12,19 @@ interface ItemGridItemProps {
 export const ItemGridItem: FC<ItemGridItemProps> = ({ item, index, onClick }) => {
     const image = selectPreferredItemImage(item, CropType.ArtikelTop);
 
+    // Of course, we'd normally wrap this in an <a>, but for the assignment's sake, we do it using an onClick
     return (
-        <article
-            data-testid="ItemGridItem"
-            className="flex flex-col transition-all hover:bg-gray-100 hover:-translate-y-1 transition-all duration-200 will-change-transform"
-        >
-            {/* Todo: use hook to find preferred one */}
-            <span className="link-primary">
-                {image && <LazyImage alt={item.titel} src={image.path} artificialDelayMs={index * 50} ratio={1.5} />}
-            </span>
-            <div className="space-y-4 p-2">
+        <article data-testid="ItemGridItem" className="ItemGrid_item">
+            {image && <LazyImage alt={item.titel} src={image.path} artificialDelayMs={index * 50} ratio={1.5} />}
+
+            <div className="ItemGrid_item_meta">
                 <div>
-                    <span className="text-gray-400">{item.labelValue}</span>
-                    <span className="link-primary">
-                        <h3 className="font-display text-xl" data-testid="ItemGridItemTitle">
-                            {item.titel}
-                        </h3>
-                    </span>
+                    <span className="ItemGrid_item_category">{item.labelValue}</span>
+                    <h3 className="ItemGrid_item_title" data-testid="ItemGridItemTitle">
+                        {item.titel}
+                    </h3>
                 </div>
-                <p className="line-clamp-3">{item.lead}</p>
+                <p className="ItemGrid_item_excerpt">{item.lead}</p>
             </div>
         </article>
     );

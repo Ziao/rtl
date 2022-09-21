@@ -1,0 +1,9 @@
+.Navbar {
+    @apply sticky z-10 w-full top-0 h-16; // outer
+    @apply flex justify-center items-center; // inner
+    @apply bg-black; // styling
+
+    &_title {
+        @apply text-lg text-white font-bold; // styling
+    }
+}

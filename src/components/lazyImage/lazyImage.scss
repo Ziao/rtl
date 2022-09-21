@@ -1,0 +1,32 @@
+.LazyImage {
+    @apply overflow-hidden w-full;
+
+    // Hide placeholder when image has loaded
+    &--loaded &_placeholder {
+        @apply opacity-0;
+    }
+
+    // Display image once it's loaded
+    &--loaded &_img {
+        @apply scale-100 opacity-100; //loaded
+    }
+
+    &_placeholder {
+        @apply transition-all duration-500;
+
+        &_skeleton {
+            @apply absolute inset-0;
+            @apply bg-gray-200 animate-pulse;
+        }
+    }
+
+    &_img {
+        @apply w-full h-full;
+        @apply transition-all duration-500 object-cover;
+        @apply opacity-0 scale-105; // unloaded
+
+        &--zoomOnHover {
+            @apply group-hover:scale-105;
+        }
+    }
+}

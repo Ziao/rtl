@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { createRef, FC, ImgHTMLAttributes, SyntheticEvent, useState } from "react";
 import { useInView } from "../../hooks/misc/useInView";
+import "./lazyImage.scss";
 
 interface LazyImageProps {
     /**
@@ -82,27 +83,26 @@ export const LazyImage: FC<LazyImageProps> = ({
     return (
         <div
             ref={containerRef}
-            className={classNames("overflow-hidden w-full group", className, {
+            // note: the `group` class has to be inline
+            className={classNames("LazyImage group", className, {
                 relative: !className?.includes("absolute"),
+                "LazyImage--loaded": isLoaded && inView,
             })}
             style={{ aspectRatio: useRatio }}
         >
-            <div
-                className={classNames("transition-all duration-500", {
-                    "opacity-0": isLoaded && inView,
-                })}
-            >
-                <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+            {/*Placeholder*/}
+            <div className="LazyImage_placeholder">
+                <div className="LazyImage_placeholder_skeleton" />
             </div>
 
+            {/*Actual image*/}
             {inView && (
                 <img
                     ref={imgRef}
                     src={src}
                     alt={alt}
-                    className={classNames("w-full h-full transition-all duration-500 object-cover", {
-                        "opacity-0 scale-105": !isLoaded || !inView,
-                        "group-hover:scale-105": zoomOnHover,
+                    className={classNames("LazyImage_img", {
+                        "LazyImage_img--zoomOnHover": zoomOnHover,
                     })}
                     onLoad={(e) => onImageLoaded(e)}
                     {...extraAttributes}

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import "./navbar.scss";
 
 interface NavbarProps {
     title: string;
@@ -6,8 +7,8 @@ interface NavbarProps {
 
 export const Navbar: FC<NavbarProps> = ({ title }) => {
     return (
-        <div className="sticky z-10 w-full top-0 h-16 text-white bg-black flex justify-center items-center">
-            {title}
+        <div className="Navbar">
+            <h1 className="Navbar_title">{title}</h1>
         </div>
     );
 };
