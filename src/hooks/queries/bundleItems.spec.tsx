@@ -19,7 +19,7 @@ describe("bundleItemsQuery", () => {
     });
 
     it("calls the correct endpoint", () => {
-        const { result } = renderHook(() => useBundleItemsQuery("endpointTest", 100), {
+        renderHook(() => useBundleItemsQuery("endpointTest", 100), {
             wrapper: ({ children }) => {
                 return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
             },
